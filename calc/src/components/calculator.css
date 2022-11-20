@@ -15,6 +15,7 @@ body {
   display: grid;
   margin-top: 3rem;
   grid-template-columns: repeat(4, 6rem);
+  /* grid-template-rows: minmax(7rem, auto) -- 1st row,  repeat(5, 6rem);-- other row */
   grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
   justify-content: center;
   align-content: center;

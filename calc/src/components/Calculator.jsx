@@ -29,9 +29,8 @@ function evaluate({ currentOperand, previousOperand, operation }) {
     case "%":
       computation = prev / current;
       break;
-
-      return computation.toString();
   }
+  return computation.toString();
 }
 
 function reducer(state, { type, payload }) {
@@ -93,7 +92,7 @@ function reducer(state, { type, payload }) {
         ...state,
         overwrite: true,
         previousOperand: null,
-        currentOperand: evaluate(state),
+        currentOperand: evaluate(state), //still has access to prev and current
         operation: null,
       };
     case ACTIONS.DELETET_DIGIT:
@@ -102,19 +101,21 @@ function reducer(state, { type, payload }) {
           ...state,
           overwrite: false,
           currentOperand: null,
-        }
+        };
       }
       if (state.currentOperand == null) {
-        return state
+        return state;
       }
       if (state.currentOperand.length === 1) {
-          return {
-            ...state, currentOperand: null
-          }
+        return {
+          ...state,
+          currentOperand: null,
+        };
+      }
       return {
         ...state,
-        currentOperand: state.currentOperand.slice(0, -1)
-      }
+        currentOperand: state.currentOperand.slice(0, -1),
+      };
   }
 }
 
@@ -140,8 +141,9 @@ const Calculator = () => {
       >
         AC
       </button>
-      <button
-      onClick={() => dispatch({ type: ACTIONS.DELETET_DIGIT })}>DEL</button>
+      <button onClick={() => dispatch({ type: ACTIONS.DELETET_DIGIT })}>
+        DEL
+      </button>
       <OperationButton operation="%" dispatch={dispatch} />
       <DigitButton digit="1" dispatch={dispatch} />
       <DigitButton digit="2" dispatch={dispatch} />
